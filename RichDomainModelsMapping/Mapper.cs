@@ -177,10 +177,10 @@ namespace RichDomainModelsMapping
              
                 public class Product
                 {
-                    protected internal  int                             ProductId       { get; set; }
+                    protected internal  int                                 ProductId       { get; set; }
 
-                    public              TheProduction.ProductCategory   ProductCategory { get; protected internal set; }
-                    public              string                          ProductName     { get; protected internal set; }
+                    public              ProductionDomain.ProductCategory    ProductCategory { get; protected internal set; }
+                    public              string                              ProductName     { get; protected internal set; }
                 }
              
              */
@@ -212,7 +212,7 @@ namespace RichDomainModelsMapping
 
             string schemaName;
             string className;
-            if (fullnameSplit.Length == 2) // The domain model is in a schema (e.g., TheProduction)
+            if (fullnameSplit.Length == 2) // The domain model is in a schema (e.g., ProductionDomain)
             {
                 schemaName = fullnameSplit[0].Split('.').Last();
                 schemaName = schemaName.Substring(0, schemaName.Length - "Domain".Length); // removes the suffix Domain
