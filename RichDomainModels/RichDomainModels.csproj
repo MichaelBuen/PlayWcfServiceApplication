@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81B773C3-91D3-479C-B3F0-4DF2E6374784}</ProjectGuid>
+    <ProjectGuid>{3225A283-AC7A-43A0-9F48-9A0B22E17FB9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceImplementations</RootNamespace>
-    <AssemblyName>ServiceImplementations</AssemblyName>
+    <RootNamespace>RichDomainModels</RootNamespace>
+    <AssemblyName>RichDomainModels</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>e65d3530</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +33,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,22 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonImplementation.MemberService.cs" />
+    <Compile Include="PersonDomain.Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dtos\Dtos.csproj">
       <Project>{37f0850d-c570-43a7-bf09-ea8770a9032d}</Project>
       <Name>Dtos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RichDomainModels\RichDomainModels.csproj">
-      <Project>{3225a283-ac7a-43a0-9f48-9a0b22e17fb9}</Project>
-      <Name>RichDomainModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj">
-      <Project>{89fa07a6-e40c-4146-b9e1-909fd5bdda64}</Project>
-      <Name>ServiceContracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitTestFriendlyDal\UnitTestFriendlyDal.csproj">
       <Project>{73bfb2c3-27a1-41d7-b3c7-f79c90ae5d6c}</Project>
@@ -63,6 +60,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.1.26.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.26.1\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.26.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.26.1\build\Fody.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

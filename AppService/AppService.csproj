@@ -40,10 +40,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="LightInject">
       <HintPath>..\packages\LightInject.3.0.2.0\lib\net45\LightInject.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -99,6 +105,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RichDomainModelsMapping\RichDomainModelsMapping.csproj">
+      <Project>{ae9a0634-5149-4c5b-93fa-7a19887f2ebf}</Project>
+      <Name>RichDomainModelsMapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj">
       <Project>{89fa07a6-e40c-4146-b9e1-909fd5bdda64}</Project>
       <Name>ServiceContracts</Name>
@@ -106,6 +116,10 @@
     <ProjectReference Include="..\ServiceImplementations\ServiceImplementations.csproj">
       <Project>{81b773c3-91d3-479c-b3f0-4df2e6374784}</Project>
       <Name>ServiceImplementations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitTestFriendlyDal\UnitTestFriendlyDal.csproj">
+      <Project>{73bfb2c3-27a1-41d7-b3c7-f79c90ae5d6c}</Project>
+      <Name>UnitTestFriendlyDal</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

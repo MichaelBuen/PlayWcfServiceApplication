@@ -1,0 +1,31 @@
+﻿/*
+
+drop table Person.Member;
+drop schema Person;
+
+*/
+
+create schema Person;
+
+go
+
+
+create table Person.Member
+(
+    MemberId int not null identity(1,1),
+    MemberName nvarchar(100) not null,
+
+
+    constraint pk_Person_Member primary key(MemberId)
+);
+
+go
+
+
+insert into Person.Member(MemberName) values
+('Ironman'),
+('Captain America'),
+('Thor'),
+('Hulk');
+
+

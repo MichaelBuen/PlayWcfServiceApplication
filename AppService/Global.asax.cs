@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UnitTestFriendlyDal;
 
 
 namespace AppService
@@ -34,7 +35,8 @@ namespace AppService
             }
 
 
-
+            DependencyFactory.Container.Register<IDomainAccessFactory, DomainAccessFactory>(new LightInject.PerContainerLifetime());
+            DependencyFactory.Container.RegisterInstance<NHibernate.ISessionFactory>(RichDomainModelsMapping.Mapper.SessionFactory);
         }
     }
 }

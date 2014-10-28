@@ -1,19 +1,28 @@
 ﻿using System.Collections.Generic;
+using UnitTestFriendlyDal;
 
 namespace ServiceImplementations
 {
+
     public static partial class PersonImplementation
     {
         [System.ServiceModel.ServiceBehavior(InstanceContextMode = System.ServiceModel.InstanceContextMode.PerCall)]
         public class MemberService : ServiceContracts.PersonContract.IMemberService
         {
+            IDomainAccessFactory _daf;
+
+            public MemberService(IDomainAccessFactory daf)
+            {
+                _daf = daf;
+            }
+
 
             IEnumerable<Dtos.PersonDto.Member> ServiceContracts.PersonContract.IMemberService.GetMembers()
             {
-                yield return new Dtos.PersonDto.Member { MemberId = 1, MemberName = "John" };
-                yield return new Dtos.PersonDto.Member { MemberId = 2, MemberName = "Paul" };
-                yield return new Dtos.PersonDto.Member { MemberId = 3, MemberName = "George" };
-                yield return new Dtos.PersonDto.Member { MemberId = 4, MemberName = "Ringo" };
+                using (var da = _daf.OpenDomainAccess())
+                {
+                    return RichDomainModels.PersonDomain.Member.GetMembers(da);
+                }
             }
 
             string ServiceContracts.PersonContract.IMemberService.GetMembership()
