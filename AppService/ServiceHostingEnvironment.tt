@@ -1,0 +1,52 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.ServiceModel" #>
+<#@ assembly name="$(SolutionDir)\ServiceContracts\bin\Debug\ServiceContracts.dll" #>
+<#@ assembly name="$(SolutionDir)\ServiceImplementations\bin\Debug\ServiceImplementations.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".config" #>
+<serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true">
+    <serviceActivations>
+<#
+            var serviceImplementations = typeof(ServiceImplementations.SampleService).Assembly.GetTypes()
+                .Where(t => t.GetInterfaces()
+                    .Any(i => i.GetCustomAttributes(false)
+                        .Any(a => a.GetType() == typeof(System.ServiceModel.ServiceContractAttribute))));
+ 
+#>
+
+<#  foreach (var item in serviceImplementations)
+    { 
+        
+        string fullName = item.FullName; // example: ServiceImplementations.PersonImplementation+MemberService
+
+        string[] fullnameSplit = fullName.Split('+');
+
+        string schemaName;
+        string className;
+
+        string serviceFullname;
+
+        if (fullnameSplit.Length == 2) // The model service is in a schema (e.g., PersonImplementation static class)
+        {
+            schemaName = fullnameSplit[0].Split('.').Last();
+            className = fullnameSplit[1];
+
+            serviceFullname = schemaName + "." + className;            
+        }
+        else // domain model is not inside schema
+        {
+            serviceFullname = item.Name;
+        }
+
+        
+    
+#>
+        <add relativeAddress="<#=serviceFullname#>.svc" service="<#=item.FullName#>" factory="AppService.LightInjectServiceHostFactory"/>
+<#  } #>       
+    </serviceActivations>
+</serviceHostingEnvironment>
+
+
