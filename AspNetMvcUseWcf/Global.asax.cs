@@ -40,9 +40,7 @@ namespace AspNetMvcUseWcf
                 System.Web.Mvc.IController ic = controllerType == null
                 ? null
                 : (System.Web.Mvc.IController)_container.GetInstance(controllerType);
-
-                // _container.ResolvePropertiesAndFields(ic);  // uncomment this if you want to use DI on controller's properties
-
+               
                 return ic;
             }
             
