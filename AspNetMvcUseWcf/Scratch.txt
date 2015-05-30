@@ -1,0 +1,71 @@
+﻿
+        void RegisterWcfService(Type contractType)
+        {
+            // _container implements DryIoc.IRegistrator
+            // RegisterDelegate is an extension method of IRegistrator
+
+            /*
+             *
+             * public static class Registrator
+             * {
+             *      public static void RegisterDelegate<TService>(
+             *          this IRegistrator registrator, Func<IResolver, TService> lambda, 
+             *          IReuse reuse = null, FactorySetup setup = null, string named = null);
+             * }
+             *
+             */
+
+            System.Reflection.MethodInfo registerDelegateMethodInfo = typeof(DryIoc.Registrator).GetMethod("RegisterDelegate").MakeGenericMethod(contractType);
+
+
+
+            // Create a Func<IResolver,TService> delegate type
+            // This will be used as the second parameter on RegisterDelegate static method.                       
+            Type funcDelegateType = typeof(Func<,>).MakeGenericType(typeof(IResolver), contractType);
+
+            // The above corresponds to this example: Func<IResolver, ServiceContracts.IProductService>
+
+
+
+
+
+            System.Reflection.MethodInfo createServiceCastedToTInterfaceMethodInfo =
+
+                    // typof(IResolver) is the parameter of CreateServiceCastedToTInterface(IResolver resolver)
+                    this.GetType().GetMethod("CreateWcfServiceCastedToTInterface", new[] { typeof(IResolver) })
+
+                    // contractType is the TContractType of CreateService<TContractType>
+                    .MakeGenericMethod(contractType);
+
+
+            // Cannot use Activator.CreateInstance on delegate type as delegates don't have constructor
+            Delegate lambda = Delegate.CreateDelegate(funcDelegateType, this, createServiceCastedToTInterfaceMethodInfo);
+
+
+
+            /*
+             * 
+             * public static void RegisterDelegate<TService>(
+             *      this IRegistrator registrator, Func<IResolver, TService> lambda, 
+             *      IReuse reuse = null, FactorySetup setup = null, string named = null);
+             */
+            // obj is null, means RegisterDelegate is a static method
+            // _container is an IRegistrator
+            registerDelegateMethodInfo.Invoke(/*obj*/ null, new object[] { _container, lambda, /*reuse*/ DryIoc.Reuse.InResolutionScope, /*setup*/null, /*named*/null });
+        }
+
+
+        
+
+        TInterface CreateWcfServiceCastedToTInterface<TInterface>(IResolver resolver)
+        {
+            var binding = resolver.Resolve<System.ServiceModel.BasicHttpBinding>();
+
+            var contractType = typeof(TInterface);
+            var svcAddress = "http://localhost:61930/" + contractType.Name.Substring(1) + ".svc";
+            var address = new System.ServiceModel.EndpointAddress(svcAddress);
+
+            var svc = (TInterface)ServiceModelHelper.CreateService(contractType, binding, address);
+            
+            return svc;
+        }

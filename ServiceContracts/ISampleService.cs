@@ -6,6 +6,6 @@ namespace ServiceContracts
     public interface ISampleService
     {
         [OperationContract]
-        string GetGreet();
+        string SampleMessage();
     }
 }

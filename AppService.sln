@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppService", "AppService\AppService.csproj", "{1F7A9F57-B7C7-42FB-887E-391C8C80FB2E}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichDomainModels", "RichDomainModels\RichDomainModels.csproj", "{3225A283-AC7A-43A0-9F48-9A0B22E17FB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RichDomainModelsMapping", "RichDomainModelsMapping\RichDomainModelsMapping.csproj", "{AE9A0634-5149-4C5B-93FA-7A19887F2EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvcUseWcf", "AspNetMvcUseWcf\AspNetMvcUseWcf.csproj", "{4D60221A-AA0D-460B-9F60-19A85BF8A538}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{AE9A0634-5149-4C5B-93FA-7A19887F2EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE9A0634-5149-4C5B-93FA-7A19887F2EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE9A0634-5149-4C5B-93FA-7A19887F2EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D60221A-AA0D-460B-9F60-19A85BF8A538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D60221A-AA0D-460B-9F60-19A85BF8A538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D60221A-AA0D-460B-9F60-19A85BF8A538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D60221A-AA0D-460B-9F60-19A85BF8A538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
